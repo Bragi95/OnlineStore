@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[Goods]
+(
+	[Id] INT NOT NULL PRIMARY KEY identity,
+	[Brand]nvarchar (30) ,		
+	[Model]nvarchar (30) ,		
+	[CountryId] int,	
+	[YearOfManufacture] date,
+	[Weight] float,
+	[PowerConsumption] float DEFAULT null,
+	[RemoteStart] bit DEFAULT null,
+	[NumberOfOperatingModes] int DEFAULT null,
+	[VolumeOfTheDustContainer] float DEFAULT null,
+	[VolumeOfTheLiquidTank] float DEFAULT null,
+	[AutomaticCleaning] bit DEFAULT null,
+	[BodyMaterial] nvarchar (30) DEFAULT null,
+	[TemperatureMaintenance] bit DEFAULT null,
+	[ChamberVolume] float DEFAULT null,
+	[InnerCoating] nvarchar(30) DEFAULT null,
+	[BowlVolume] float DEFAULT null,
+	[TypeOfHeating] nvarchar(30) DEFAULT null,
+	[MaxLoading] float DEFAULT null,
+	[TheVolumeOfTheDrum] float DEFAULT null,
+	[DryerMode] bit DEFAULT null,
+	[Color] nvarchar(30) DEFAULT null,
+	[Price] decimal
+)
