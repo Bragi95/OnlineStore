@@ -1,0 +1,12 @@
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\bin\Debug\netcoreapp3.1\OnlineStore.Data.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.csprojAssemblyReference.cache
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.AssemblyInfoInputs.cache
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.AssemblyInfo.cs
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\bin\Debug\netcoreapp3.1\OnlineStore.Business.deps.json
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\bin\Debug\netcoreapp3.1\OnlineStore.Business.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\bin\Debug\netcoreapp3.1\OnlineStore.Business.pdb
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\bin\Debug\netcoreapp3.1\OnlineStore.Data.pdb
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.csproj.CopyComplete
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.pdb
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.Business\obj\Debug\netcoreapp3.1\OnlineStore.Business.csproj.CoreCompileInputs.cache

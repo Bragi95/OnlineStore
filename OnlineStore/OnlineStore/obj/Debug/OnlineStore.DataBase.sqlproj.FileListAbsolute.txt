@@ -1,0 +1,10 @@
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\bin\Debug\OnlineStore.DataBase.dacpac
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\bin\Debug\OnlineStore.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\bin\Debug\OnlineStore.pdb
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\OnlineStore.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\OnlineStore.pdb
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\OnlineStore.DataBase.sqlprojAssemblyReference.cache
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\Model.xml
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\refactor.xml
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\postdeploy.sql
+F:\My работы\OnlineStore\OnlineStore\OnlineStore\obj\Debug\predeploy.sql

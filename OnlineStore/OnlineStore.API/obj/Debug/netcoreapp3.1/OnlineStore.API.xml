@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OnlineStore.API</name>
+    </assembly>
+    <members>
+        <member name="M:OnlineStore.API.Controllers.GoodsController.GetGoodsById(System.Int32)">
+             <summary>
+             Returns the Goods by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 Get / Goods
+                 {
+                    "id": 1  
+                 }
+            
+             </remarks>
+             <param name="id"></param>
+             <returns>A newly created TodoItem</returns>
+             <response code="200">The selected product is returned</response>
+             <response code="404">The product will not be found</response> 
+        </member>
+    </members>
+</doc>

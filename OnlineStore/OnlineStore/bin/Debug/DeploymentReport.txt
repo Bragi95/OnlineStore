@@ -1,0 +1,57 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Goods]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Goods].[BrandId] is being dropped, data loss could occur.
+       The column [dbo].[PaymentType].[Type] is being dropped, data loss could occur.
+
+** User actions
+     Drop
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+     Alter
+       [dbo].[Customer] (Table)
+       [dbo].[PaymentType] (Table)
+       [dbo].[SelectAllOrderByCustomerId] (Procedure)
+       [dbo].[SelectAllOrderByStorageId] (Procedure)
+       [dbo].[SelectCustomerById] (Procedure)
+       [dbo].[SelectOrderById] (Procedure)
+       [dbo].[SelectAllQuantityGoods] (Procedure)
+       [dbo].[SelectOrderGoodsByOrderId] (Procedure)
+       [dbo].[SelectQuantityGoodsByStorageId] (Procedure)
+       [dbo].[AddOrUpdate] (Procedure)
+       [dbo].[SearchGoods] (Procedure)
+       [dbo].[MergeCustomer] (Procedure)
+     Table rebuild
+       [dbo].[Goods] (Table)
+     Create
+       [dbo].[Role] (Table)
+       [dbo].[MergeGoods] (Procedure)
+       [dbo].[MergeOrder] (Procedure)
+       [dbo].[SelectAllCustomers] (Procedure)
+       [dbo].[TransferGoods] (Procedure)
+
+** Supporting actions
+
+The column [dbo].[Goods].[BrandId] is being dropped, data loss could occur.
+The column [dbo].[PaymentType].[Type] is being dropped, data loss could occur.
+If this deployment is executed, changes to [dbo].[Customer] might introduce run-time errors in [dbo].[SelectAllCustomer].
+
