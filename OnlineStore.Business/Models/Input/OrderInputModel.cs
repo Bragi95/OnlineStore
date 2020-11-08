@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace OnlineStore.Business.Models.Input
 {
     public class OrderInputModel
     {
         public int? Id { get; set; }
-        public int? CustomerId { get; set; }
-        public int? PaymentTypeId { get; set; }
-        public int? StorageId { get; set; }
-        public int? StatusOrderId { get; set; }
-        public OrderGoodsInputModel? OrderGoods { get; set; }
-        public string DateOrder { get; set; }
-        public decimal? TotalCost { get; set; }
+        public int UserId { get; set; }
+        public int PaymentTypeId { get; set; }
+        public int StorageId { get; set; }
+        public int StatusOrderId { get; set; }
+        public List<OrderGoodsInputModel> OrderGoods { get; set; }         
     }
 }

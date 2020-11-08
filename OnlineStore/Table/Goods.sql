@@ -21,6 +21,6 @@
 	[MaxLoading] float DEFAULT null,
 	[TheVolumeOfTheDrum] float DEFAULT null,
 	[DryerMode] bit DEFAULT null,
-	[Color] nvarchar(30) DEFAULT null,
+	[ColorId] INT DEFAULT null,
 	[Price] decimal
 )

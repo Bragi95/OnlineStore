@@ -12,4 +12,8 @@
     <ProjectReference Include="..\OnlineStore.Data\OnlineStore.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Servises\" />
+  </ItemGroup>
+
 </Project>

@@ -58,11 +58,12 @@
     <Folder Include="Properties" />
     <Folder Include="Table" />
     <Folder Include="StorageProcedure" />
-    <Folder Include="StorageProcedure\Customer" />
+    <Folder Include="StorageProcedure\User" />
     <Folder Include="StorageProcedure\Goods" />
     <Folder Include="StorageProcedure\Goods_Storage" />
     <Folder Include="StorageProcedure\Order" />
     <Folder Include="StorageProcedure\Order_Goods" />
+    <Folder Include="Migration" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Table\Storage.sql" />
@@ -73,14 +74,14 @@
     <Build Include="Table\Goods_Storage.sql" />
     <Build Include="Table\Goods.sql" />
     <Build Include="Table\FeedBack.sql" />
-    <Build Include="Table\Customer.sql" />
+    <Build Include="Table\User.sql" />
     <Build Include="Table\Country.sql" />
     <Build Include="Table\Color.sql" />
     <Build Include="Table\City.sql" />
     <Build Include="Table\Role.sql" />
-    <Build Include="StorageProcedure\Customer\MergeCustomer.sql" />
-    <Build Include="StorageProcedure\Customer\SelectCustomerById.sql" />
-    <Build Include="StorageProcedure\Customer\SelectAllCustomers.sql" />
+    <Build Include="StorageProcedure\User\MergeUser.sql" />
+    <Build Include="StorageProcedure\User\SelectUserById.sql" />
+    <Build Include="StorageProcedure\User\SelectAllUsers.sql" />
     <Build Include="StorageProcedure\Goods\MergeGoods.sql" />
     <Build Include="StorageProcedure\Goods\SearchGoods.sql" />
     <Build Include="StorageProcedure\Goods_Storage\AddOrUpdate.sql" />
@@ -89,8 +90,13 @@
     <Build Include="StorageProcedure\Goods_Storage\SelectQuantityGoodsByStorageId.sql" />
     <Build Include="StorageProcedure\Order\MergeOrder.sql" />
     <Build Include="StorageProcedure\Order_Goods\MergeOrder_Goods.sql" />
-    <Build Include="StorageProcedure\Order_Goods\SelectOrderGoodsByOrderId.sql" />
-    <Build Include="StorageProcedure\Order_Goods\SelectOrderGoodsByCustomerId.sql" />
-    <Build Include="StorageProcedure\Order_Goods\SelectOrderGoodsByStorageId.sql" />
+    <Build Include="StorageProcedure\Order\SelectOrderById.sql" />
+    <Build Include="StorageProcedure\Order\SelectOrderByUserId.sql" />
+    <Build Include="StorageProcedure\Order\SelectOrderByStorageId.sql" />
+    <Build Include="StorageProcedure\Order\UpdateStatusOrderByOrderId.sql" />
+    <Build Include="Migration\V2.0.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="OnlineStore.DataBase.refactorlog" />
   </ItemGroup>
 </Project>

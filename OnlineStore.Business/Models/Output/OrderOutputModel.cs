@@ -18,7 +18,7 @@ namespace OnlineStore.Business.Models.Output
         public string StorageAddress { get; set; }
         public string StoragePhone { get; set; }
         public string StatusOrder { get; set; }
-        public List<OrderGoodsOutputModel>? Goods { get; set; }
+        public List<OrderGoodsOutputModel>? OrderGoods { get; set; }
         public string DateOrder { get; set; }
         public decimal? TotalCost { get; set; }
     }

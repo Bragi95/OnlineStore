@@ -9,7 +9,7 @@ namespace OnlineStore.Business.Models.Output
     {
         public int Id { get; set; }
         public GoodsOutputModel Goods { get; set; }
-        public OrderOutputModel Order { get; set; }
+        public int? OrderId { get; set; }
         public int Quantity { get; set; }
     }
 }

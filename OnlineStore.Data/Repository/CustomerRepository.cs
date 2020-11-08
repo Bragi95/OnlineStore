@@ -10,15 +10,15 @@ using System.Text;
 
 namespace OnlineStore.Data.Repository
 {
-    public class CustomerRepository : BaseRepository, ICustomerRepository
+    public class CustomerRepository : BaseRepository, IUserRepository
     {
-        public DataWrapper<CustomerDto> MergeCustomer(CustomerDto dto)
+        public DataWrapper<UserDto> MergeUser(UserDto dto)
         {
-            var data = new DataWrapper<CustomerDto>();
+            var data = new DataWrapper<UserDto>();
             try
             {
-                data.Data = DbConnection.Query<CustomerDto, CountryDto, CityDto, RoleDto, CustomerDto>(
-                  StorageProcedure.MergeCustomer,
+                data.Data = DbConnection.Query<UserDto, CountryDto, CityDto, RoleDto, UserDto>(
+                  StorageProcedure.MergeUser,
                    (customer, country, city, role) =>
                    {
                        customer.Country = country;
@@ -34,7 +34,9 @@ namespace OnlineStore.Data.Repository
                        dto.Name,
                        dto.LastName,
                        dto.Phone,
-                       dto.Email
+                       dto.Email,
+                       dto.Address,
+                       dto.Password
                    },
                     splitOn: "Id",
                     commandType: CommandType.StoredProcedure
@@ -47,13 +49,13 @@ namespace OnlineStore.Data.Repository
             return data;
         }
 
-        public DataWrapper<CustomerDto> SelectCustomerById(int id)
+        public DataWrapper<UserDto> SelectUserById(int id)
         {
-            var data = new DataWrapper<CustomerDto>();
+            var data = new DataWrapper<UserDto>();
             try
             {
-                data.Data = DbConnection.Query<CustomerDto, CountryDto, CityDto, RoleDto, CustomerDto>(
-                  StorageProcedure.MergeCustomer,
+                data.Data = DbConnection.Query<UserDto, CountryDto, CityDto, RoleDto, UserDto>(
+                  StorageProcedure.SelectUser,
                    (customer, country, city, role) =>
                    {
                        customer.Country = country;
@@ -76,13 +78,13 @@ namespace OnlineStore.Data.Repository
             return data;
         }
 
-        public DataWrapper<List<CustomerDto>> SelectAllCustomer()
+        public DataWrapper<List<UserDto>> SelectAllUser()
         {
-            var data = new DataWrapper<List<CustomerDto>>();
+            var data = new DataWrapper<List<UserDto>>();
             try
             {
-                data.Data = DbConnection.Query<CustomerDto, CountryDto, CityDto, RoleDto, CustomerDto>(
-                 StorageProcedure.MergeCustomer,
+                data.Data = DbConnection.Query<UserDto, CountryDto, CityDto, RoleDto, UserDto>(
+                 StorageProcedure.SelectAllUser,
                   (customer, country, city, role) =>
                   {
                       customer.Country = country;

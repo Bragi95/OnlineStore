@@ -20,7 +20,7 @@
 	@MaxLoading float = null,
 	@TheVolumeOfTheDrum float= null,
 	@DryerMode bit = null,
-	@Color nvarchar(30) = null,
+	@ColorId nvarchar(30) = null,
 	@Price decimal = null
 AS
 	declare
@@ -49,7 +49,7 @@ set @result = @Id
 		@MaxLoading ,
 		@TheVolumeOfTheDrum ,
 		@DryerMode ,
-		@Color,
+		@ColorId,
 		@Price )
 	As sourse (
 		
@@ -73,7 +73,7 @@ set @result = @Id
 		MaxLoading ,
 		TheVolumeOfTheDrum ,
 		DryerMode ,
-		Color,
+		ColorId,
 		Price)
 			on	(G.Id = @Id) 
 	When MATCHED THEN 
@@ -100,7 +100,7 @@ set @result = @Id
 		TheVolumeOfTheDrum = sourse.TheVolumeOfTheDrum ,
 		DryerMode = sourse.DryerMode ,
 		Price = sourse.Price,
-		Color = sourse.Color		
+		ColorId = sourse.ColorId		
 	WHEN NOT MATCHED THEN	
 	insert (  
 		Brand ,
@@ -123,7 +123,7 @@ set @result = @Id
 		MaxLoading ,
 		TheVolumeOfTheDrum ,
 		DryerMode ,
-		Color,
+		ColorId,
 		Price) 
 	values (		 
 		sourse.Brand ,			
@@ -146,7 +146,7 @@ set @result = @Id
 		sourse.MaxLoading ,
 		sourse.TheVolumeOfTheDrum ,
 		sourse.DryerMode ,
-		sourse.Color,
+		sourse.ColorId,
 		sourse.Price
 	);
 	If(@result is Null)set @result = SCOPE_IDENTITY()

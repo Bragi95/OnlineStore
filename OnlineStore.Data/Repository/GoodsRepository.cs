@@ -20,8 +20,8 @@ namespace OnlineStore.Data.Repository
                   StorageProcedure.MergeGoods,
                    (goods, country, color) =>
                    {
-                       goods.CountryId = country;
-                       goods.ColorId = color;
+                       goods.Country = country;
+                       goods.Color = color;
                        return goods;
                    },
                    new
@@ -29,7 +29,7 @@ namespace OnlineStore.Data.Repository
                        dto.Id,
                        dto.Brand,
                        dto.Model,
-                       dto.CountryId,
+                       CountryId = dto.Country.id,
                        dto.YearOfManufacture,
                        dto.Weight,
                        dto.PowerConsumption,
@@ -47,7 +47,7 @@ namespace OnlineStore.Data.Repository
                        dto.MaxLoading,
                        dto.TheVolumeOfTheDrum,
                        dto.DryerMode,
-                       dto.ColorId,
+                       ColorId = dto.Color.Id,
                        dto.Price
                    },
                     splitOn: "Id",
@@ -70,14 +70,15 @@ namespace OnlineStore.Data.Repository
                   StorageProcedure.SearchGoods,
                    (goods, country, color) =>
                    {
-                       goods.CountryId = country;
-                       goods.ColorId = color;
+                       goods.Country = country;
+                       goods.Color = color;
                        return goods;
                    },
                    new
                    {
-                       dto.Id,
-                       dto.BrandId,
+                       dto.Id,                      
+                       dto.Brand,
+                       dto.Model,
                        dto.CountryId,
                        dto.YearOfManufactureStart,
                        dto.YearOfManufactureEnd,

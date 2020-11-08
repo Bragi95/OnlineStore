@@ -1,67 +1,44 @@
-﻿using OnlineStore.Data.Dto;
+﻿using Dapper;
+using OnlineStore.Data;
+using OnlineStore.Data.Dto;
 using OnlineStore.Data.Repository;
 using SqlKata;
+using SqlKata.Compilers;
 using SqlKata.Execution;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Shop.Data.Repository
 {
     public class StorageRepository : BaseRepository, IStorageRepository
-    {
-        public OrderDto SelectOrderById(int id)
-        {
-            var query = db.Query("Order").
-                Join("Customer", "Customer.Id", "Order.CustomerId").
-                Join("Storage", "Storage.Id", "Order.StorageId").
-                Join("PaymentType", "PaymentType.Id", "Order.PaymentTypeId").
-                Join("StatusOrder", "StatusOrder.Id", "Order.StatusOrderId").
-                LeftJoin("Order_Goods", "Order_Goods.orderId", "Order.Id").
-                LeftJoin("Goods", "Goods.Id", "Order_Goods.goodsId").
-                Select(
-                "Storage.Name",
-                "Storage.CityId",
-                "Storage.Address",
-                "Storage.Phone",
-                "Goods.Brand",
-                "Goods.Model",
-                "Order_Goods.QuantityGoods",
-                "(Goods.Price * Order_Goods.QuantityGoods) as Price",
-                "sum(Price) as TotalCost"
-                ).
-                Where("id", id).
-                Get<OrderDto>();
-
-            return (OrderDto)query;
-        }
-
-
-        public StorageDto StorageMerge(StorageDto dto)
+    {     
+        public DataWrapper<StorageDto> StorageMerge(StorageDto dto)
         {
             int id;
             var query = db.Query("Storage");
-            if (dto.id > 0)
+            if (dto.Id > 0)
             {
-                query.Where("Id", dto.id).Update(
+                query.Where("Id", dto.Id).Update(
                     new
                     {
                         CountryId = dto.Country.id,
-                        CiryId = dto.City.id,
+                        CityId = dto.City.id,
                         name = dto.Name,
                         address = dto.Address,
                         phone = dto.Phone,
                         email = dto.Email
                     }
                     );
-                id = dto.id;
+                id = dto.Id.Value;
             }
             else
             {
                 id = query.InsertGetId<int>(new
                 {
                     CountryId = dto.Country.id,
-                    CiryId = dto.City.id,
+                    CityId = dto.City.id,
                     name = dto.Name,
                     address = dto.Address,
                     phone = dto.Phone,
@@ -72,61 +49,112 @@ namespace Shop.Data.Repository
             return SelectStorageById(id);
         }
 
-        public StorageDto SelectStorageById(int id)
+        public DataWrapper<StorageDto> SelectStorageById(int id)
         {
-            var query = db.Query("Storage").
-                Join("Country", "Country.Id", "Storage.CountryId").
-                Join("City", "City.Id", "Storage.CityId").
-                Select(
-                "Country.Name",
-                "City.Name",
-                "Storage.Name",
-                "Storage.Address",
-                "Storage.Phone",
-                "Storage.Email"
-                ).
-                Where("id", id).
-                Get<StorageDto>();
+            var data = new DataWrapper<StorageDto>();
+            try
+            {
+                var query = db.Query("Storage").
+                    Select(
+                    "Storage.{Id, Name, Address,Phone,Email}",
+                    "City.{Id, Name}",
+                    "Country.{Id, Name}"
+                    ).
+                    Join("Country", "Country.Id", "Storage.CountryId").
+                    Join("City", "City.Id", "Storage.CityId").
+                    Where("Storage.Id", id);
 
-            return (StorageDto)query;
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<StorageDto, CityDto, CountryDto, StorageDto>(
+                    sqlResult.Sql,
+                    (storage, city, country) =>
+                    {
+                        storage.City = city;
+                        storage.Country = country;
+                        return storage;
+                    },
+                    splitOn: "Id",
+                    param: sqlResult.NamedBindings).
+                    FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;           
         }
 
-        public StorageDto SelectStorageByCountryId(int id)
+        public DataWrapper<List<StorageDto>> SelectStorageByCountryId(int id)
         {
-            var query = db.Query("Storage").
-                Join("Country", "Country.Id", "Storage.CountryId").
-                Join("City", "City.Id", "Storage.CityId").
-                Select(
-                "Country.Name",
-                "City.Name",
-                "Storage.Name",
-                "Storage.Address",
-                "Storage.Phone",
-                "Storage.Email"
-                ).
-                Where("countryId", id).
-                Get<StorageDto>();
+            var data = new DataWrapper<List<StorageDto>>();
+            try
+            {
+                var query = db.Query("Storage").
+                    Select(
+                    "Storage.{Id, Name, Address,Phone,Email}",
+                    "City.{Id, Name}",
+                    "Country.{Id, Name}"
+                    ).
+                    Join("Country", "Country.Id", "Storage.CountryId").
+                    Join("City", "City.Id", "Storage.CityId").
+                    Where("Storage.CountryId", id);
 
-            return (StorageDto)query;
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<StorageDto, CityDto, CountryDto, StorageDto>(
+                    sqlResult.Sql,
+                    (storage, city, country) =>
+                    {
+                        storage.City = city;
+                        storage.Country = country;
+                        return storage;
+                    },
+                    splitOn: "Id",
+                    param: sqlResult.NamedBindings).
+                    ToList();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;
         }
 
-        public StorageDto SelectStorageByCityId(int id)
+        public DataWrapper<List<StorageDto>> SelectStorageByCityId(int id)
         {
-            var query = db.Query("Storage").
-                Join("Country", "Country.Id", "Storage.CountryId").
-                Join("City", "City.Id", "Storage.CityId").
-                Select(
-                "Country.Name",
-                "City.Name",
-                "Storage.Name",
-                "Storage.Address",
-                "Storage.Phone",
-                "Storage.Email"
-                ).
-                Where("cityId", id).
-                Get<StorageDto>();
+            var data = new DataWrapper<List<StorageDto>>();
+            try
+            {
+                var query = db.Query("Storage").
+                    Select(
+                    "Storage.{Id, Name, Address,Phone,Email}",
+                    "City.{Id, Name}",
+                    "Country.{Id, Name}"
+                    ).
+                    Join("Country", "Country.Id", "Storage.CountryId").
+                    Join("City", "City.Id", "Storage.CityId").
+                    Where("Storage.CityId", id);
 
-            return (StorageDto)query;
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<StorageDto, CityDto, CountryDto, StorageDto>(
+                    sqlResult.Sql,
+                    (storage, city, country) =>
+                    {
+                        storage.City = city;
+                        storage.Country = country;
+                        return storage;
+                    },
+                    splitOn: "Id",
+                    param: sqlResult.NamedBindings).
+                    ToList();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;
         }
     }
 }

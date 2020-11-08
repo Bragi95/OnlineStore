@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[FeedBack]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[CustomerId] int,
+	[UserId] int null,
 	[GoodsId] int null,
 	[StorageId] int null,
 	[Message] nvarchar(2000),

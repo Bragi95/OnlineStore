@@ -1,57 +1,17 @@
-﻿using OnlineStore.Data.Dto;
+﻿using Dapper;
+using OnlineStore.Data.Dto;
 using SqlKata;
 using SqlKata.Execution;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OnlineStore.Data.Repository
 {
     public class FeedBackRepository : BaseRepository, IFeedBackRepository
     {
-        public FeedBackDto SelectFeedBackById(int id)
-        {
-            var query = db.Query("FeedBack").
-                Join("Customer", "Customer.Id", "Order.CustomerId").
-                Join("Storage", "Storage.Id", "Order.StorageId").
-                Join("Goods", "Goods.Id", "Order_Goods.goodsId").
-                Select(
-                "Customer.Name",
-                "Customer.LastName",
-                "Storage.Name",
-                "Storage.CityId",
-                "Goods.Brand",
-                "Goods.Model",
-                "Goods.Price"
-                ).
-                Where("id", id).
-                Get<FeedBackDto>();
-
-            return (FeedBackDto)query;
-        }
-
-        public FeedBackDto SelectFeedBackByCustomerId(int id)
-        {
-            var query = db.Query("FeedBack").
-                Join("Customer", "Customer.Id", "Order.CustomerId").
-                Join("Storage", "Storage.Id", "Order.StorageId").
-                Join("Goods", "Goods.Id", "Order_Goods.goodsId").
-                Select(
-                "Customer.Name",
-                "Customer.LastName",
-                "Storage.Name",
-                "Storage.CityId",
-                "Goods.Brand",
-                "Goods.Model",
-                "Goods.Price"
-                ).
-                Where("CustomerId", id).
-                Get<FeedBackDto>();
-
-            return (FeedBackDto)query;
-        }
-
-        public FeedBackDto FeedBackMerge(FeedBackDto dto)
+        public DataWrapper<FeedBackDto> FeedBackMerge(FeedBackDto dto)
         {
             int id;
             var query = db.Query("FeedBack");
@@ -60,8 +20,8 @@ namespace OnlineStore.Data.Repository
                 query.Where("Id", dto.Id).Update(
                     new
                     {
-                        goodsId = dto.GoodsId,
-                        storageId = dto.StorageId,
+                        goodsId = dto.Goods.Id,
+                        storageId = dto.Storage.Id,
                         message = dto.Message,
                         rating = dto.Rating
                     }
@@ -72,9 +32,9 @@ namespace OnlineStore.Data.Repository
             {
                 id = query.InsertGetId<int>(new
                 {
-                    customerId = dto.CustomerId,
-                    goodsId = dto.GoodsId,
-                    storageId = dto.StorageId,
+                    userId = dto.User.Id,
+                    goodsId = dto.Goods.Id,
+                    storageId = dto.Storage.Id,
                     date = DateTime.Now,
                     message = dto.Message,
                     rating = dto.Rating
@@ -82,6 +42,173 @@ namespace OnlineStore.Data.Repository
             }
 
             return SelectFeedBackById(id);
+        }
+        public DataWrapper<FeedBackDto> SelectFeedBackById(int id)
+        {
+            var data = new DataWrapper<FeedBackDto>();
+            try
+            {
+                var query = db.Query("FeedBack").
+                Select(
+                "FeedBack.{Id,Message,Date, Rating}",
+                "Storage.{Id, Name}",
+                "City.{Id, Name}",
+                "Goods.{Id, Brand, Model, Price}",
+                "User.{Id,Name}"
+                ).
+                Join("User", "User.Id", "FeedBack.UserId").
+                Join("Storage", "Storage.Id", "FeedBack.StorageId").
+                Join("Goods", "Goods.Id", "FeedBack.goodsId").
+                Join("City", "City.Id", "Storage.CityId").
+                Where("FeedBack.Id", id);
+
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<FeedBackDto, StorageDto, CityDto, GoodsDto, UserDto, FeedBackDto>(
+                    sqlResult.Sql,
+                    (feedback, storage, city,goods, user) =>
+                    {
+                        storage.City = city;
+                        feedback.Goods = goods;
+                        feedback.Storage = storage;
+                        feedback.User = user;
+                        return feedback;
+                    },
+                    splitOn: "Id",
+                    param: sqlResult.NamedBindings).
+                    SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;
+        }
+
+        public DataWrapper<List<FeedBackDto>> SelectFeedBackByUserId(int id)
+        {
+            var data = new DataWrapper<List<FeedBackDto>>();
+            try
+            {
+                var query = db.Query("FeedBack").
+                Select(
+                "FeedBack.{Id,Message,Date, Rating}",
+                "Storage.{Id, Name}",
+                "City.{Id, Name}",
+                "Goods.{Id, Brand, Model, Price}",
+                "User.{Id,Name}"
+                ).
+                Join("User", "User.Id", "FeedBack.UserId").
+                Join("Storage", "Storage.Id", "FeedBack.StorageId").
+                Join("Goods", "Goods.Id", "FeedBack.goodsId").
+                Join("City", "City.Id", "Storage.CityId").
+                Where("UserId", id);
+
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<FeedBackDto, StorageDto, CityDto, GoodsDto, UserDto, FeedBackDto>(
+                    sqlResult.Sql,
+                    (feedback, storage, city, goods, user) =>
+                    {
+                        storage.City = city;
+                        feedback.Goods = goods;
+                        feedback.Storage = storage;
+                        feedback.User = user;
+                        return feedback;
+                    },
+                    splitOn: "Id",
+                    param: sqlResult.NamedBindings).
+                    ToList();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;
+        }
+
+        public DataWrapper<List<FeedBackDto>> SelectFeedBackByGoodsId(int id)
+        {
+            var data = new DataWrapper<List<FeedBackDto>>();
+            try
+            {
+                var query = db.Query("FeedBack").
+                Select(
+                "FeedBack.{Id,Message,Date, Rating}",
+                "Storage.{Id, Name}",
+                "City.{Id, Name}",
+                "Goods.{Id, Brand, Model, Price}",
+                "User.{Id,Name}"
+                ).
+                Join("User", "User.Id", "FeedBack.UserId").
+                Join("Storage", "Storage.Id", "FeedBack.StorageId").
+                Join("Goods", "Goods.Id", "FeedBack.goodsId").
+                Join("City", "City.Id", "Storage.CityId").
+                Where("GoodsId", id);
+
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<FeedBackDto, StorageDto, CityDto, GoodsDto, UserDto, FeedBackDto>(
+                    sqlResult.Sql,
+                    (feedback, storage, city, goods, user) =>
+                    {
+                        storage.City = city;
+                        feedback.Goods = goods;
+                        feedback.Storage = storage;
+                        feedback.User = user;
+                        return feedback;
+                    },
+                    splitOn: "Id",
+                    param: sqlResult.NamedBindings).
+                    ToList();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;
+        }
+
+        public DataWrapper<List<FeedBackDto>> SelectFeedBackByStorageId(int id)
+        {
+            var data = new DataWrapper<List<FeedBackDto>>();
+            try
+            {
+                var query = db.Query("FeedBack").
+                Select(
+                "FeedBack.{Id,Message,Date, Rating}",
+                "Storage.{Id, Name}",
+                "City.{Id, Name}",
+                "Goods.{Id, Brand, Model, Price}",
+                "User.{Id,Name}"
+                ).
+                Join("User", "User.Id", "FeedBack.UserId").
+                Join("Storage", "Storage.Id", "FeedBack.StorageId").
+                Join("Goods", "Goods.Id", "FeedBack.goodsId").
+                Join("City", "City.Id", "Storage.CityId").
+                Where("StorageId", id);
+
+                SqlResult sqlResult = compiler.Compile(query);
+
+                data.Data = DbConnection.Query<FeedBackDto, StorageDto, CityDto, GoodsDto, UserDto, FeedBackDto>(
+                   sqlResult.Sql,
+                   (feedback, storage, city, goods, user) =>
+                   {
+                       storage.City = city;
+                       feedback.Goods = goods;
+                       feedback.Storage = storage;
+                       feedback.User = user;
+                       return feedback;
+                   },
+                   splitOn: "Id",
+                   param: sqlResult.NamedBindings).
+                   ToList();
+            }
+            catch (Exception ex)
+            {
+                data.ExceptionMessage = ex.Message;
+            }
+            return data;
         }
     }
 }

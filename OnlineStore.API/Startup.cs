@@ -25,12 +25,13 @@ namespace OnlineStore.API
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule<AutofacConfig>();
+            builder.RegisterModule<AutofacRepositoryConfig>();
+            builder.RegisterModule<AutofacManagerConfig>();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(OnlineStore.Business.Configurations.MappingProfile));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

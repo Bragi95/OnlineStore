@@ -27,11 +27,7 @@
 AS
 begin
 	DECLARE @resultSQL nvarchar (max) = '
-	SELECT 
-		Co.Id,
-		Co.Name as Color,
-		C.Id,
-		C.name as Manufacture,
+	SELECT 		
 		G.Id ,	
 		G.Brand ,
 		G.Model ,		
@@ -52,7 +48,9 @@ begin
 		G.MaxLoading ,
 		G.TheVolumeOfTheDrum ,
 		G.DryerMode ,
-		G.Price
+		G.Price,
+		C.Id,C.name,
+		Co.Id,Co.Name
     FROM    [dbo].[Goods] as G
 	inner JOIN dbo.[Country] as C on G.[CountryId] = C.Id
 	join dbo.Color as Co on Co.id = G.ColorId	
@@ -61,7 +59,7 @@ begin
 	if( @Id IS NOT NULL)
 		begin 
 			set @resultSQL += ' and G.[Id] = ' + CONVERT(nvarchar, @Id)
-		end
+		end	
 	if( @Brand IS NOT NULL)
 		begin      
 			set @resultSQL += ' and G.Brand LIKE ' + '''%' + CONVERT(nvarchar(50), @Brand) + '%'''     
@@ -86,7 +84,8 @@ begin
 		end
     if( @TypeOfHeating IS NOT NULL)
 		begin     
-			set @resultSQL += ' and G.TypeOfHeating LIKE ' + '''%' + CONVERT(nvarchar(50), @TypeOfHeating) + '%'''      
+			if(@TypeOfHeating !='0') set @resultSQL += ' and G.TypeOfHeating LIKE ' + '''%' + CONVERT(nvarchar(50), @TypeOfHeating) + '%'''  
+			else set @resultSQL += ' and G.TypeOfHeating  != null'
 		end
 	if( @CountryId IS NOT NULL)
 		begin
@@ -108,7 +107,8 @@ begin
 		end
 	if( @VolumeOfTheDustContainer IS NOT NULL)
 		begin
-			set @resultSQL += ' and G.VolumeOfTheDustContainer = ' + CONVERT(nvarchar, @VolumeOfTheDustContainer)
+			if(@VolumeOfTheDustContainer != 0)set @resultSQL += ' and G.VolumeOfTheDustContainer = ' + CONVERT(nvarchar, @VolumeOfTheDustContainer)
+			else set @resultSQL += ' and G.VolumeOfTheLiquidTank != null'
 		end
 	if( @VolumeOfTheLiquidTank IS NOT NULL)
 		begin
@@ -128,7 +128,8 @@ begin
 		end
 	if( @BowlVolume IS NOT NULL)
 		begin
-			set @resultSQL += ' and G.BowlVolume = ' + CONVERT(nvarchar, @BowlVolume)
+			if(@BowlVolume != 0) set @resultSQL += ' and G.BowlVolume = ' + CONVERT(nvarchar, @BowlVolume)
+			else set @resultSQL += ' and G.BowlVolume != null'
 		end
 	if( @TheVolumeOfTheDrum IS NOT NULL)
 		begin

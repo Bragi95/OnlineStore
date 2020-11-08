@@ -7,7 +7,7 @@ namespace OnlineStore.Data.Dto
     public class CountryDto
     {
         public int? id { get; set; }
-        public string CountryName { get; set; }
+        public string Name { get; set; }
 
     }
 }

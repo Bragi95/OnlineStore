@@ -7,7 +7,7 @@ namespace OnlineStore.Business.Models.Input
     public class GoodsStorageTransferInputModel 
     {
         public int? GoodsId { get; set; }
-        public int? StorageId { get; set; }
+        public int? SenderId { get; set; }
         public int? QuantityGoods { get; set; }
         public int? RecipiendId { get; set; }
     }

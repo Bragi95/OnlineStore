@@ -1,0 +1,34 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Order]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Order].[CustomerId] is being dropped, data loss could occur.
+
+** User actions
+     Table rebuild
+       [dbo].[Order] (Table)
+     Create
+       [dbo].[FeedBack] (Table)
+       [dbo].[User] (Table)
+       Default Constraint: unnamed constraint on [dbo].[User] (Default Constraint)
+       [dbo].[MergeUser] (Procedure)
+       [dbo].[SelectAllUsers] (Procedure)
+       [dbo].[SelectOrderByUserId] (Procedure)
+       [dbo].[SelectUserById] (Procedure)
+     Alter
+       [dbo].[MergeOrder] (Procedure)
+       [dbo].[SelectOrderById] (Procedure)
+       [dbo].[SelectOrderByStorageId] (Procedure)
+       [dbo].[SearchGoods] (Procedure)
+
+** Supporting actions
+     Refresh
+       [dbo].[MergeOrder_Goods] (Procedure)
+       [dbo].[MergeGoods] (Procedure)
+
+The column [dbo].[Order].[CustomerId] is being dropped, data loss could occur.
+

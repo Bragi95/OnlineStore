@@ -7,7 +7,9 @@ namespace OnlineStore.Data.Dto
     public class SearchDto
     {
         public int? Id { get; set; }
-        public int? BrandId { get; set; }
+        public int? TypeId { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
         public int? CountryId { get; set; }
 		public DateTime? YearOfManufactureStart { get; set; }
         public DateTime? YearOfManufactureEnd { get; set; }

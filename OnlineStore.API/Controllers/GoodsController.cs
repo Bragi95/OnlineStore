@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineStore.API.Serveces;
+using OnlineStore.Business.Configurations;
+using OnlineStore.Business.Manager;
 using OnlineStore.Business.Models.Input;
-
-
+using OnlineStore.Business.Models.Output;
+using OnlineStore.Data;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.API.Controllers
 {
@@ -10,6 +15,16 @@ namespace OnlineStore.API.Controllers
     [ApiController]
     public class GoodsController : Controller
     {
+        private ValidationGoods _validationGoods;
+        private IGoodsManager _goodsManager;
+        DivisionGoodsByType _GoodsByType;
+        public GoodsController(ValidationGoods validationGoods, IGoodsManager goodsManager, DivisionGoodsByType goodsByType)
+        {
+            _validationGoods = validationGoods;
+            _goodsManager = goodsManager;
+            _GoodsByType = goodsByType;
+        }
+
         /// <summary>
         /// Returns the Goods by id
         /// </summary>
@@ -29,37 +44,65 @@ namespace OnlineStore.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetGoodsById(int id)
+        public ActionResult<List<GoodsOutputModel>> GetGoodsById(int id)
         {
-            return Ok();
+            var result = _goodsManager.SearchGoods(new SearchInputModel() { Id = id });           
+            return MakeResponse(result);
         }
 
-        
+
         [HttpGet]
-        public ActionResult GetAllGoods()
+        public ActionResult<List<GoodsOutputModel>> GetAllGoods()
         {
-            return Ok();
+            var result = _goodsManager.SearchGoods(new SearchInputModel());
+            return MakeResponse(result);
         }
 
-        
+
         [HttpPost("Add")]
         public ActionResult AddGoods([FromBody] GoodsInputModel model)
         {
-            return Ok();
+            string validationResult = _validationGoods.ValidateGoodsInputModel(model);
+            if (!string.IsNullOrEmpty(validationResult))
+            {
+                return UnprocessableEntity(validationResult);
+            }
+            var result = _GoodsByType.Merge(model);
+            return Ok(result);
         }
 
-        
+
         [HttpPut("Update")]
         public ActionResult UpdateGoods([FromBody] GoodsInputModel model)
         {
-            return Ok();
+            string validationResult = _validationGoods.ValidateGoodsInputModel(model);
+            if (!string.IsNullOrEmpty(validationResult))
+            {
+                return UnprocessableEntity(validationResult);
+            }
+            var result = _GoodsByType.Merge(model);
+            return Ok(result);
         }
 
-        
+
         [HttpPost("Search")]
-        public ActionResult SearchGoods([FromBody] SearchInputModel model)
+        public ActionResult<List<GoodsOutputModel>> SearchGoods([FromBody] SearchInputModel model)
         {
-            return Ok();
+            var result = _GoodsByType.Search(model);            
+            return Ok(result);
+        }
+
+        private ActionResult<T> MakeResponse<T>(DataWrapper<T> operationResult)
+        {
+            if (operationResult.IsOk)
+            {
+                if (operationResult.Data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(operationResult.Data);
+            }
+            return Problem(detail: operationResult.ExceptionMessage, statusCode: 520);
         }
     }
 }

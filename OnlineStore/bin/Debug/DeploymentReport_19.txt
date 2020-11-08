@@ -1,0 +1,35 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The type for column ColorId in table [dbo].[Goods] is currently  NVARCHAR (30) NULL but is being changed to  INT NULL.
+         Data loss could occur.
+
+** User actions
+     Rename
+       [dbo].[Goods].[ColorId] (Column)
+     Drop
+       unnamed constraint on [dbo].[Goods] (Default Constraint)
+     Alter
+       [dbo].[Goods] (Table)
+       [dbo].[MergeGoods] (Procedure)
+
+** Supporting actions
+     Create
+       Default Constraint: unnamed constraint on [dbo].[Goods] (Default Constraint)
+     Refresh
+       [dbo].[AddOrUpdate] (Procedure)
+       [dbo].[MergeOrder_Goods] (Procedure)
+       [dbo].[SelectAllQuantityGoods] (Procedure)
+       [dbo].[SelectOrderByCustomerId] (Procedure)
+       [dbo].[SelectOrderById] (Procedure)
+       [dbo].[SelectOrderByStorageId] (Procedure)
+       [dbo].[SelectQuantityGoodsByStorageId] (Procedure)
+       [dbo].[TransferGoods] (Procedure)
+
+The type for column ColorId in table [dbo].[Goods] is currently  NVARCHAR (30) NULL but is being changed to  INT NULL. Data loss could occur.
+

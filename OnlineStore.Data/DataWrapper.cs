@@ -2,7 +2,8 @@
 
 namespace OnlineStore.Data
 {
-    public class DataWrapper<T>
+    public interface IDataWrapper<out T> { };
+    public class DataWrapper<T> : IDataWrapper<T>
     {
         public T Data { get; set; }
         public bool IsOk => ExceptionMessage == null;

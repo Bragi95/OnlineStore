@@ -9,8 +9,8 @@ namespace OnlineStore.Data.Dto
 		public int? Id { get; set; }		
 		public string Brand {get;set;}		
 		public string Model {get;set;}		
-		public CountryDto? CountryId { get; set; }		
-		public ColorDto? ColorId { get; set; }
+		public CountryDto Country { get; set; }		
+		public ColorDto Color { get; set; }
 		public DateTime? YearOfManufacture { get; set; }
 		public double? Weight  { get; set; }
 		public double? PowerConsumption { get; set; }

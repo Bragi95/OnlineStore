@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace OnlineStore.Business.Models.Input
@@ -7,6 +8,7 @@ namespace OnlineStore.Business.Models.Input
     public class SearchInputModel
     {
 		public int? Id { get; set; }
+		public int TypeId { get; set; }
 		public string Brand { get; set; }
 		public string Model { get; set; }
 		public int? CountryId { get; set; }

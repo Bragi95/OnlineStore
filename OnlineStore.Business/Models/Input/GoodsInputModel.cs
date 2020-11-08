@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace OnlineStore.Business.Models.Input
 {
     public class GoodsInputModel
     {
-		public int? Id { get; set; }
-		public string Brand { get; set; }
+		public int? Id { get; set; }		
+		public int? TypeId { get; set; }	
+		public string Brand { get; set; }	
 		public string Model { get; set; }
 		public int? CountryId { get; set; }
-		public int? ColorId { get; set; }
+		public int? ColorId { get; set; }	
 		public string YearOfManufacture { get; set; }
 		public double? Weight { get; set; }
 		public double? PowerConsumption { get; set; }

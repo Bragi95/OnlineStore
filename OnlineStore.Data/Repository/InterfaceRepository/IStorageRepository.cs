@@ -1,13 +1,14 @@
-﻿using OnlineStore.Data.Dto;
+﻿using OnlineStore.Data;
+using OnlineStore.Data.Dto;
+using System.Collections.Generic;
 
 namespace Shop.Data.Repository
 {
     public interface IStorageRepository
     {
-        OrderDto SelectOrderById(int id);
-        StorageDto SelectStorageByCityId(int id);
-        StorageDto SelectStorageByCountryId(int id);
-        StorageDto SelectStorageById(int id);
-        StorageDto StorageMerge(StorageDto dto);
+        DataWrapper<List<StorageDto>> SelectStorageByCityId(int id);
+        DataWrapper<List<StorageDto>> SelectStorageByCountryId(int id);
+        DataWrapper<StorageDto> SelectStorageById(int id);
+        DataWrapper<StorageDto> StorageMerge(StorageDto dto);
     }
 }
