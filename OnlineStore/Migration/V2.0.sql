@@ -1,22 +1,22 @@
 ﻿USE [OnlineStore.Database]
 GO
 
---create table [dbo].[DbVersion] 
---(
---   [Id] int NOT NULL PRIMARY KEY Identity (1,1),
---    [Created]   datetime2 (0)  constraint DF_DbVersion_Created default sysutcdatetime(), 
---    [Version] decimal(18,2)  not null 
---);
+create table [dbo].[DbVersion] 
+(
+   [Id] int NOT NULL PRIMARY KEY Identity (1,1),
+    [Created]   datetime2 (0)  constraint DF_DbVersion_Created default sysutcdatetime(), 
+    [Version] decimal(18,2)  not null 
+);
 
---if (select top(1) Version from dbo.DbVersion) is null 
---insert into dbo.DbVersion values(sysutcdatetime(),1.0)
+if (select top(1) Version from dbo.DbVersion) is null 
+insert into dbo.DbVersion values(sysutcdatetime(),1.0)
 
---declare @dbVersion int 
+declare @dbVersion int 
 
---Select top(1) @dbVersion = Version 
---from dbo.DbVersion 
---order by Created DESC
---if @dbVersion >=2.0 set noexec on
+Select top(1) @dbVersion = Version 
+from dbo.DbVersion 
+order by Created DESC
+if @dbVersion >=2.0 set noexec on
 
 EXEC sp_rename 'Goods_Storage', 'Storage_Product'
 go
@@ -42,32 +42,28 @@ EXEC sp_rename 'Order_Product.QuantityGoods', 'Quantity', 'COLUMN';
 go
 
 CREATE TABLE [dbo].[TypeGoods](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](30) NULL	
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+	[Id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](30) NULL)	
 GO
 
-insert into dbo.TypeGoods Values('VacuumCleaner'),('Microwave'),('Washer'),('ElectricKettle'),('Multicookers')
+insert into dbo.TypeGoods 
+Values
+('VacuumCleaner'),
+('Microwave'),
+('Washer'),
+('ElectricKettle'),
+('Multicookers')
 GO
 
 CREATE TABLE [dbo].[PropertiesGoods](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[GoodsId] [int]  null ,
 	[Name] [nvarchar](100) NULL,	
-	[Value] [nvarchar](100) NULL	
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+	[Value] [nvarchar](100) NULL)	
 GO
 
 CREATE TABLE [dbo].[Product](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[TypeId] [int]  NOT NULL,
 	[Brand] [nvarchar](30) NULL,
 	[Model] [nvarchar](30) NULL,
@@ -76,13 +72,9 @@ CREATE TABLE [dbo].[Product](
 	[Weight] [float] NULL,	
 	[PowerConsumption] [float] null,
 	[ColorId] [int] NULL,
-	[Price] [decimal](18, 0) NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+	[Price] [decimal](18, 0) NULL)
+	GO
+
 
 CREATE PROCEDURE SelectPropertyById
 	@Id int
@@ -95,7 +87,7 @@ SELECT
 FROM dbo.PropertiesGoods AS PG
 join dbo.Product AS P ON P.Id = PG.GoodsId
 join dbo.TypeGoods AS T ON T.Id = P.TypeId
-join dbo.Color AS C ON C.Id =.ColorId
+join dbo.Color AS C ON C.Id =P.ColorId
 WHERE PG.Id = @Id
 go
 
@@ -155,7 +147,8 @@ if(@result is null) set @result = SCOPE_IDENTITY()
 exec SelectPropertyById @result
 go
 
-DECLARE @Id int, @productId int
+DECLARE @Id int
+declare @productId int
 DECLARE my_cur CURSOR FOR 
      SELECT G.Id
      FROM dbo.Goods As G
@@ -718,6 +711,6 @@ go
 DROP PROCEDURE dbo.SearchGoods 
 go
 
---insert into dbo.DbVersion values(sysutcdatetime(),2.0)
+insert into dbo.DbVersion values(sysutcdatetime(),2.0)
 
---set noexec off
+set noexec off

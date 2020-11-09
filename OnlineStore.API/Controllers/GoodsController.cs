@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineStore.API.Serveces;
 using OnlineStore.Business.Configurations;
 using OnlineStore.Business.Manager;
@@ -99,8 +100,8 @@ namespace OnlineStore.API.Controllers
                 if (operationResult.Data == null)
                 {
                     return NotFound();
-                }
-                return Ok(operationResult.Data);
+                }                
+                return Ok(JsonConvert.SerializeObject(operationResult.Data));
             }
             return Problem(detail: operationResult.ExceptionMessage, statusCode: 520);
         }

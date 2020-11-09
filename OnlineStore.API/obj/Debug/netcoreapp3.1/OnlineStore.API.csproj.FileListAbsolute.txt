@@ -22,8 +22,6 @@ F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
-F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.csproj.CoreCompileInputs.cache
-F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.MvcApplicationPartsAssemblyInfo.cache
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
@@ -66,7 +64,6 @@ F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\OnlineStore.Business.pdb
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\OnlineStore.Data.pdb
-F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.MvcApplicationPartsAssemblyInfo.cs
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.csproj.CopyComplete
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\staticwebassets\OnlineStore.API.StaticWebAssets.Manifest.cache
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\staticwebassets\OnlineStore.API.StaticWebAssets.xml
@@ -75,3 +72,8 @@ F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.genruntimeconfig.cache
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\OnlineStore.API.xml
 F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.xml
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.csproj.CoreCompileInputs.cache
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.MvcApplicationPartsAssemblyInfo.cs
+F:\My работы\OnlineStore\OnlineStore\OnlineStore.API\obj\Debug\netcoreapp3.1\OnlineStore.API.MvcApplicationPartsAssemblyInfo.cache

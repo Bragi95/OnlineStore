@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CRM.Business.Hashing;
 using OnlineStore.Business.Models.Input;
 using OnlineStore.Business.Models.Output;
 using OnlineStore.Data.Dto;
@@ -13,6 +14,7 @@ namespace OnlineStore.Business.Configurations
     {
 
         private const string _shortDateFormat = "dd.MM.yyyy";
+        private const string _yearDateFormat = "yyyy";
         private const string _longDateFormat = "dd.MM.yyyy HH:mm:ss";
         public MappingProfile()
         {
@@ -55,12 +57,12 @@ namespace OnlineStore.Business.Configurations
             CreateMap<GoodsInputModel, GoodsDto>()
                 .ForPath(dest => dest.Country, o => o.MapFrom(src => src.CountryId != null ? new CountryDto() { id = src.CountryId } : null))
                 .ForPath(dest => dest.Color, o => o.MapFrom(src => src.ColorId != null ? new ColorDto() { Id = src.ColorId } : null))
-                .ForPath(dest => dest.YearOfManufacture, o => o.MapFrom(src => src.YearOfManufacture != null ? (DateTime?)DateTime.ParseExact(src.YearOfManufacture, _shortDateFormat, CultureInfo.InvariantCulture) : null));
+                .ForPath(dest => dest.YearOfManufacture, o => o.MapFrom(src => src.YearOfManufacture != null ? (DateTime?)DateTime.ParseExact(src.YearOfManufacture, _yearDateFormat, CultureInfo.InvariantCulture) : null));
 
             CreateMap<GoodsDto, GoodsOutputModel>()
                 .ForPath(dest => dest.Country, o => o.MapFrom(src => src.Country != null ? new CountryOutputModel() { Id = src.Country.id, Name = src.Country.Name } : null))
                 .ForPath(dest => dest.Color, o => o.MapFrom(src => src.Color != null ? new ColorOutputModel() { Id = src.Color.Id, Name = src.Color.Name } : null))
-                .ForPath(dest => dest.YearOfManufacture, o => o.MapFrom(src => src.YearOfManufacture.Value.ToString(_shortDateFormat)));
+                .ForPath(dest => dest.YearOfManufacture, o => o.MapFrom(src => src.YearOfManufacture.Value.ToString(_yearDateFormat)));
 
             CreateMap<GoodsDto, WasherOutputModel>()
                  .ForPath(dest => dest.Country, o => o.MapFrom(src => src.Country != null ? new CountryOutputModel() { Id = src.Country.id, Name = src.Country.Name } : null))
@@ -97,6 +99,7 @@ namespace OnlineStore.Business.Configurations
             CreateMap<UserInpudModel, UserDto>()
                 .ForPath(dest => dest.City, o => o.MapFrom(src => src.CityId != null ? new CityDto() { id = src.CityId } : new CityDto()))
                 .ForPath(dest => dest.Country, o => o.MapFrom(src => src.CountryId != null ? new CountryDto() { id = src.CityId } : new CountryDto()))
+                .ForPath(dest => dest.Password, o => o.MapFrom(src => BCryptHashing.HashPassword(src.Password)))
                 .ForPath(dest => dest.Role, o => o.MapFrom(src => new RoleDto()));
             
             CreateMap<UserDto, UserOutputModel>();

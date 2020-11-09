@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "4TbrDx/ZYw2whjro5jeT++Wy8tmZ7V5jjxrNFetPvaMRK15iVRCjam6m92MjPZTS7zoaZqiI+GwzAFVuOvdlDg==",
+  "dgSpecHash": "Tq0t6ELGngpScH+NFFdxs6HybbBLjg0daCbHKnAn86MNbZts1pFVah3OsXW3GS9rjAQPOKU/eC43TMiWkKAeGQ==",
   "success": true,
   "projectFilePath": "F:\\My работы\\OnlineStore\\OnlineStore\\OnlineStore.Business\\OnlineStore.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Daramir\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\Daramir\\.nuget\\packages\\bcrypt.net-next\\4.0.0\\bcrypt.net-next.4.0.0.nupkg.sha512",
     "C:\\Users\\Daramir\\.nuget\\packages\\dapper\\1.50.5\\dapper.1.50.5.nupkg.sha512",
     "C:\\Users\\Daramir\\.nuget\\packages\\humanizer.core\\2.6.2\\humanizer.core.2.6.2.nupkg.sha512",
     "C:\\Users\\Daramir\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
